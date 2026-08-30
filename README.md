@@ -49,7 +49,10 @@ site/index.html
    git push -u origin main
    ```
 
-3. 打开仓库 → **Settings** → **Pages** → Source 选 **GitHub Actions**
+3. **开启 GitHub Pages**：打开仓库 → **Settings** → **Pages** → Source 选 **GitHub Actions**
+
+   > 这一步必须做，否则 Actions 会报 `Not Found` 错误。如果你已经更新到最新代码，工作流里加了 `enablement: true`，理论上会自动开，但手动确认一下最稳。
+
 4. 等 Actions 跑完（约 1 分钟），访问 `https://<用户名>.github.io/<仓库名>/`
 
 以后更新内容：
