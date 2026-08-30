@@ -1,0 +1,39 @@
+# Build outputs
+# site/ 由 GitHub Actions 现建现传，不需要提交
+dist/
+site/
+
+# Vite cache
+.vite/
+
+# 本地助手的工作目录
+.tsb/
+.workbuddy/
+
+# TypeScript build info
+*.tsbuildinfo
+.tsbuild/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+node_modules/
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS
+.DS_Store
+Thumbs.db

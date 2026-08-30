@@ -1,0 +1,57 @@
+name: Deploy to GitHub Pages
+
+on:
+  # 推送到 main 分支时自动构建并发布
+  push:
+    branches: ["main"]
+  # 也允许在 GitHub 网页上手动点一次
+  workflow_dispatch:
+
+# 让 Actions 有权限写 GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 同时触发多次时排队，不要互相打断
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 拉取代码
+        uses: actions/checkout@v4
+
+      - name: 准备 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: 安装依赖
+        run: npm ci
+
+      - name: 类型检查 + 构建
+        run: npm run build
+
+      - name: 配置 Pages
+        uses: actions/configure-pages@v5
+
+      - name: 上传构建产物
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 发布到 GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN" suppressHydrationWarning>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="IS IT USELESS ? —— 随机抽取一条没用但忍不住想知道的冷知识。" />
+    <title>IS IT USELESS ?</title>
+    <style>
+      #file-protocol-hint {
+        max-width: 34rem;
+        margin: 15vh auto;
+        padding: 0 1.5rem;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        line-height: 1.8;
+        color: #18181b;
+      }
+      #file-protocol-hint h1 {
+        font-size: 2rem;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        margin-bottom: 1.5rem;
+      }
+      #file-protocol-hint code {
+        background: #f4f4f5;
+        border: 1px solid #e4e4e7;
+        border-radius: 4px;
+        padding: 0.1em 0.4em;
+        font-size: 0.9em;
+      }
+      #file-protocol-hint ul {
+        margin: 0.5rem 0 0;
+        padding-left: 1.2rem;
+      }
+      @media (prefers-color-scheme: dark) {
+        #file-protocol-hint {
+          color: #fafafa;
+        }
+        #file-protocol-hint code {
+          background: #27272a;
+          border-color: #3f3f46;
+        }
+      }
+    </style>
+    <script>
+      // 首屏前同步应用主题，避免深色模式闪白
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme")
+          var system = window.matchMedia("(prefers-color-scheme: dark)").matches
+          if (stored === "dark" || ((!stored || stored === "system") && system)) {
+            document.documentElement.classList.add("dark")
+          }
+        } catch (e) {}
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <!-- 直接双击本文件（file:// 协议）时 ES 模块加载不到，这里给出提示，避免白屏 -->
+    <div id="file-protocol-hint" style="display: none">
+      <h1>IS IT USELESS ?</h1>
+      <p><strong>这是源码入口，不是网页成品。</strong></p>
+      <p>直接双击打开时浏览器加载不到模块，所以是白屏。</p>
+      <p>请二选一：</p>
+      <ul>
+        <li>打开 <code>dist/index.html</code>（构建好的单文件版，可以直接双击）</li>
+        <li>或在本目录执行 <code>npm run dev</code>，然后访问 <code>http://localhost:5173</code></li>
+      </ul>
+    </div>
+    <script>
+      if (location.protocol === "file:") {
+        document.getElementById("file-protocol-hint").style.display = "block"
+      }
+    </script>
+
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
